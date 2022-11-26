@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+admin.site.site_header = "RTF Administration"
+admin.site.site_title = "RTF Admin"
+admin.site.index_title = "RTF Admin Home" 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),

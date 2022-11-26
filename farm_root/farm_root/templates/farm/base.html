@@ -45,7 +45,7 @@
             <a href="{% url 'goats:retired-list' %}">Retired</a>
           </div>
         <a href="{% url 'contact:contact-us' %}">Contact Us</a>
-        <a href="">FAQ</a>
+        <a href="/faq/">FAQ</a>
         <a href="{% url 'reviews:review-list' %}">Reviews</a>
         {% if perms.goat.add_goat %}
           <a href="{% url 'goats:doe-add' %}">Add Doe</a>
