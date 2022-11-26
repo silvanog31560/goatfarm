@@ -1,0 +1,75 @@
+{% extends "farm/base.html" %}
+
+{% block title %}Herd List{% endblock title %}
+
+{% block content %}
+<main class="main-structure">
+
+  <h1 class="main-heading">Herd</h1>
+
+  <hr>
+  <h2 class="align-center">Does</h2>
+  <div class="cards bottom-padding">
+  {% for doe in goats.does %}
+    <section class="card card-structure align-center">
+        <a href="{{ doe.get_absolute_url }}">
+        <h3 class="align-center">{{ doe|title }}</h3>
+          <img src="{{ doe.profile_pic_thumbnail.url }}" alt="{{ doe.profile_pic }}"
+            width="300" height="225" class="radius">
+      </a>
+    </section>
+  {% empty %}
+    <h2 class="align-center">No records found.</h2>
+  {% endfor %}
+  </div>
+
+    <hr>
+    <h2 class="align-center">Bucks</h2>
+    <div class="cards bottom-padding">
+    {% for buck in goats.bucks %}
+      <section class="card card-structure align-center">
+          <a href="{{ buck.get_absolute_url }}">
+          <h3 class="align-center">{{ buck|title }}</h3>
+            <img src="{{ buck.profile_pic_thumbnail.url }}" alt="{{ buck.profile_pic }}"
+              width="300" height="225" class="radius">
+        </a>
+      </section>
+    {% empty %}
+      <h2 class="align-center">No records found.</h2>
+    {% endfor %}
+    </div>
+
+    {% if goats.doelings %}
+      <hr>
+      <h2 class="align-center">Doelings</h2>
+      <div class="cards bottom-padding">
+      {% for doeling in goats.doelings %}
+        <section class="card card-structure align-center">
+            <a href="{{ doeling.get_absolute_url }}">
+            <h3 class="align-center">{{ doeling|title }}</h3>
+              <img src="{{ doeling.profile_pic_thumbnail.url }}" alt="{{ doeling.profile_pic }}"
+                width="300" height="225" class="radius">
+          </a>
+        </section>
+      {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if goats.bucklings %}
+      <hr>
+      <h2 class="align-center">Bucklings</h2>
+      <div class="cards bottom-padding">
+        {% for buckling in goats.bucklings %}
+          <section class="card card-structure align-center">
+              <a href="{{ buckling.get_absolute_url }}">
+              <h3 class="align-center">{{ buckling|title }}</h3>
+                <img src="{{ buckling.profile_pic_thumbnail.url }}" alt="{{ buckling.profile_pic }}"
+                  width="300" height="225" class="radius">
+            </a>
+          </section>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+</main>
+{% endblock content %}

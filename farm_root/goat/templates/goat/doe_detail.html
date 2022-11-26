@@ -1,0 +1,160 @@
+{% extends "farm/base.html" %}
+{% load static %}
+
+{% block title %}{{ doe.name }}{% endblock title %}
+
+{% block content %}
+<main class="main-structure">
+  {% if messages %}
+  <div class="messages">
+      {% for message in messages %}
+        {% if message.tags == 'success' or message.tags == 'info' %}
+          <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+  </div>
+  {% endif %}
+
+  <h1 class="align-center"> {{ doe.name|title }}</h1>
+
+  <section class="align-center">
+        <img
+          srcset="{{ doe.profile_pic_medium.url }} 703w, {{ doe.profile_pic_regular.url }} 800w"
+          sizes="(max-width: 688px) 703px,
+                 800px"
+          src="{{ doe.profile_pic_regular.url }}"
+          alt="{{ doe.profile_pic }}" class="max-width radius" />
+  </section>
+
+  <table class="align-table">
+
+    <tr class="bottom-padding">
+      <th>Name: </th>
+      <td>{{ doe.name|title }}</td>
+    </tr>
+    <tr>
+      <th>DOB: </th>
+      <td>{{ doe.dob }}</td>
+    </tr>
+    <tr>
+      <th>Availability: </th>
+      <td>{{ doe.get_availability_display }}</td>
+    </tr>
+    {% if doe.availability == 'YES' %}
+      <tr>
+        <th>Price:</th>
+        <td>${{ doe.price }}</td>
+      </tr>
+    {% endif %}
+    <tr>
+      <th>Comments: </th>
+      <td>{{ doe.comments }}</td>
+    </tr>
+  </table>
+
+  {% if doe.test_result != 'NOT' %}
+    <hr>
+    <table class="align-table">
+      <thead>
+        <tr>
+          <th colspan="2"> Tested for CL, CAE/OPP, and Johne's</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Test Results: </th>
+          <td>{{ doe.get_test_result_display }}</td>
+        </tr>
+      </tbody>
+    </table>
+  {% endif %}
+
+    {% if doe.sire != None %}
+    <hr>
+    <table class="align-table">
+      <thead>
+        <tr>
+          <th colspan="2">Ancestry</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th>Sire: </th>
+        <td>{{ doe.sire }}</td>
+      </tr>
+    {% endif %}
+    {% if doe.dam != None %}
+      <tr>
+        <th>Dam: </th>
+        <td>{{ doe.dam }}</td>
+      </tr>
+    {% endif %}
+    {% if doe.ss != None %}
+      <tr>
+        <th>SS: </th>
+        <td>{{ doe.ss }}</td>
+      </tr>
+    {% endif %}
+    {% if doe.sd != None %}
+      <tr>
+        <th>SD: </th>
+        <td>{{ doe.sd }}</td>
+      </tr>
+    {% endif %}
+    {% if doe.ds != None %}
+      <tr>
+        <th>DS: </th>
+        <td>{{ doe.ds }}</td>
+      </tr>
+    {% endif %}
+    {% if doe.dd != None %}
+      <tr>
+        <th>DD: </th>
+        <td>{{ doe.dd }}</td>
+      </tr>
+    {% endif %}
+    {% if doe.bred_status == 'B' %}
+      <tr>
+        <th>Bred to: </th>
+        <td>{{ doe.bred_to }}</td>
+      </tr>
+      <tr>
+        <th>Estimated due date: </th>
+        <td>{{ doe.due }}</td>
+      </tr>
+    {% endif %}
+    </tbody>
+  </table>
+
+  <hr>
+  <h2 class="align-center">Images</h2>
+  {% for pic in doe.images.all %}
+    <figure class="align-center">
+      <img
+        srcset="{{ pic.image_medium.url }} 703w, {{ pic.image_regular.url }} 800w"
+        sizes="(max-width: 688px) 703px,
+               800px"
+        src="{{ pic.image_regular.url }}"
+        alt="{{ pic.image_regular }}" class="max-width radius" />
+      <figcaption>{{ pic.description }}</figcaption>
+    </figure>
+  {% empty %}
+    <p>No images found.</p>
+  {% endfor %}
+
+  <div class="align-center bottom-padding">
+    <hr>
+      <a href="{{ request.META.HTTP_REFERER }}"
+        class="light-button">Previous Page</a>
+      {% if perms.goat.delete_goat %}
+        <a href="{% url 'goats:doe-update' pk=doe.pk %}"
+          class="light-button">Update {{ doe.name|title }}</a>
+        <a href="{% url 'goats:doe-image-update' pk=doe.pk %}"
+          class="light-button">Update {{ doe.name|title }} Images</a>
+        <a href="{% url 'goats:doe-delete' pk=doe.pk %}"
+          class="light-button">Delete {{ doe.name|title }}</a>
+      {% endif %}
+  </div>
+</main>
+
+{% endblock content %}

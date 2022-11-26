@@ -1,0 +1,48 @@
+{% extends "farm/base.html" %}
+
+{% block title %}Edit images for {{ buck.name }}{% endblock title %}
+
+{% block content %}
+<main class="main-structure">
+  <div class="light-form">
+    <h2 class="align-center">Edit images for {{ buck.name }}</h2>
+    <form method="post" enctype="multipart/form-data" class="add-form">
+      {% csrf_token %}
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+      {{ form.management_form }}
+      {{ form.non_form_errors }}
+      <h3>Update Photo Album</h3>
+      {% for image_form in form.forms %}
+        <hr>
+        <p>
+          {% if image_form.instance.id %}
+            Description: {{ image_form.instance.description }}
+            Image: {{ image_form.instance.image }}
+          {% else %}
+            {% if form.forms|length > 1 %}
+              Add another image
+            {% else %}
+              Add an image
+            {% endif %}
+          {% endif %}
+        </p>
+          {% for hidden_field in image_form.hidden_fields %}
+            {{ hidden_field.errors }}
+          {% endfor %}
+            <table>
+              {{ image_form.as_table }}
+            </table>
+        {% endfor %}
+        <hr>
+        <p class="align-center">
+          <button type="submit" value="Update album"
+            class="add-btn med-button">Update Album</button>
+          <a href="{{ buck.get_absolute_url }}" class="med-button">Cancel</a>
+        </p>
+    </form>
+  </div>
+</main>
+{% endblock content %}

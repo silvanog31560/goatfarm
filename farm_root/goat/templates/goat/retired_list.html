@@ -1,0 +1,43 @@
+{% extends "farm/base.html" %}
+
+{% block title %}Retired List{% endblock title %}
+
+{% block content %}
+<main class="main-structure">
+
+  <h1 class="main-heading">Retired</h1>
+
+    <hr>
+    <h2 class="align-center">Does</h2>
+    <div class="cards">
+    {% for doe in goats.does %}
+      <section class="card card-structure align-center">
+          <a href="{{ doe.get_absolute_url }}">
+          <h3 class="align-center">{{ doe }}</h3>
+            <img src="{{ doe.profile_pic_thumbnail.url }}" alt="{{ doe.profile_pic }}"
+              width="300" height="225" class="radius">
+        </a>
+      </section>
+    {% empty %}
+      <h2 class="align-center">No records found.</h2>
+    {% endfor %}
+    </div>
+
+    <hr>
+    <h2 class="align-center">Bucks</h2>
+    <div class="cards">
+    {% for buck in goats.bucks %}
+      <section class="card card-structure align-center">
+          <a href="{{ buck.get_absolute_url }}">
+          <h3 class="align-center">{{ buck }}</h3>
+            <img src="{{ buck.profile_pic_thumbnail.url }}" alt="{{ buck.profile_pic }}"
+              width="300" height="225" class="radius">
+        </a>
+      </section>
+    {% empty %}
+      <h2 class="align-center">No records found.</h2>
+    {% endfor %}
+    </div>
+
+</main>
+{% endblock content %}

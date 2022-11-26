@@ -1,0 +1,45 @@
+{% extends "farm/base.html" %}
+
+{% block title %}{{ buck.name|title }} Delete{% endblock title %}
+
+{% block content %}
+<main class="main-structure">
+
+  {% if messages %}
+  <div class="messages">
+      {% for message in messages %}
+        {% if message.tags == 'warning' %}
+          <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="light-form">
+    <h2 class="align-center">Delete {{ buck.name|title }}</h2>
+    <section class="align-center">
+      <img
+        srcset="{{ buck.profile_pic_medium.url }} 703w, {{ buck.profile_pic_regular.url }} 800w"
+        sizes="(max-width: 688px) 703px,
+               800px"
+        src="{{ buck.profile_pic_regular.url }}"
+        alt="{{ buck.profile_pic }}" class="max-width radius" />
+    </section>
+    <form method="post" class="add-form">
+      {% csrf_token %}
+      <table class="align-table">
+        <tr>
+          <td colspan=2>Are you sure you want to delete "{{ buck.name|title }}"?</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center">
+            <a href="{{ buck.get_absolute_url }}"
+              class="med-button">Cancel</a>
+            <input type="submit" value="Delete" class="add-btn red-button">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</main>
+{% endblock content %}

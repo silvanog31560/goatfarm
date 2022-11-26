@@ -1,0 +1,43 @@
+{% extends "farm/base.html" %}
+
+{% block title %}Past List{% endblock title %}
+
+{% block content %}
+<main class="main-structure">
+
+  <h1 class="main-heading">Past Kids</h1>
+
+    <hr>
+    <h2 class="align-center">Doelings</h2>
+    <div class="cards">
+    {% for doeling in goats.doelings %}
+      <section class="card card-structure align-center">
+          <a href="{{ doeling.get_absolute_url }}">
+          <h3 class="align-center">{{ doeling }}</h3>
+            <img src="{{ doeling.profile_pic_thumbnail.url }}" alt="{{ doeling.profile_pic }}"
+              width="300" height="225" class="radius">
+        </a>
+      </section>
+    {% empty %}
+      <h2 class="align-center">No records found.</h2>
+    {% endfor %}
+    </div>
+
+    <hr>
+    <h2 class="align-center">Bucklings</h2>
+    <div class="cards">
+    {% for buckling in goats.bucklings %}
+      <section class="card card-structure align-center">
+          <a href="{{ buckling.get_absolute_url }}">
+          <h3 class="align-center">{{ buckling }}</h3>
+            <img src="{{ buckling.profile_pic_thumbnail.url }}" alt="{{ buckling }}"
+              width="300" height="225" class="radius">
+        </a>
+      </section>
+    {% empty %}
+      <h2 class="align-center">No records found.</h2>
+    {% endfor %}
+    </div>
+
+</main>
+{% endblock content %}

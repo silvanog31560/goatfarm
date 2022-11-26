@@ -1,0 +1,42 @@
+{% extends "farm/base.html" %}
+
+{% block title %}Add Buck{% endblock title %}
+{% block styles %}{% endblock styles %}
+
+{% block content %}
+<main class="main-structure">
+  <div class="light-form">
+    <h2 class="align-center">Add Buck</h2>
+    <form method="post" enctype="multipart/form-data" class="add-form">
+      {% csrf_token %}
+      <table class="align-table">
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
+      {{ form.non_form_errors }}
+
+      {% for field in form %}
+      <tr>
+        <th colspan="2">{{ field.errors }}</th>
+      </tr>
+      <tr>
+        <th class="align-right">
+          {% if field.field.required %}<span class="required">*</span>{% endif %}
+          {{ field.label_tag}}
+        </th>
+        <td class="">{{ field }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="2" class="align-center">
+          <a href="/" class="add-btn med-button">Cancel</a>
+          <input id="" type="submit" value="Add" class="add-btn med-button">
+        </td>
+      </tr>
+  </table>
+    </form>
+  </div>
+</main>
+{% endblock content %}

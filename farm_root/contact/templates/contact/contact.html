@@ -1,0 +1,44 @@
+{% extends "farm/base.html" %}
+
+{% block title %}Contact Page{% endblock title %}
+
+{% block content %}
+<main class="main-structure">
+  <div class="light-form">
+    <h2 class="align-center">Send Us A Message</h2>
+
+  {% if submitted %}
+    <p class="align-center">
+    Your message was submitted successfully. Thank you.
+    </p>
+  {% else %}
+    <form method="post">
+      {% csrf_token %}
+      <table class="align-table">
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
+      {{ form.non_form_errors }}
+        {% for field in form %}
+          <tr>
+            <th colspan="2">{{ field.errors }}</th>
+          </tr>
+          <tr>
+            <th>{{ field.label_tag}}</th>
+            <td class="">{{ field }}</td>
+          </tr>
+        {% endfor %}
+          <tr>
+            <td colspan="2" class="align-center">
+              <a href="{{ request.META.HTTP_REFERER }}" class="med-button">Previous Page</a>
+              <input id="" type="submit" value="Send" class="med-button">
+            </td>
+          </tr>
+      </table>
+    </form>
+  </div>
+</main>
+  {% endif %}
+{% endblock content %}
