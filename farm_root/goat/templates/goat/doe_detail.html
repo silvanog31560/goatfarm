@@ -6,7 +6,7 @@
 {% block content %}
 <main class="main-structure">
   {% if messages %}
-  <div class="messages">
+  <div class="messages align-center">
       {% for message in messages %}
         {% if message.tags == 'success' or message.tags == 'info' %}
           <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
@@ -139,7 +139,7 @@
       <figcaption>{{ pic.description }}</figcaption>
     </figure>
   {% empty %}
-    <p>No images found.</p>
+    <p class="align-center">No images found.</p>
   {% endfor %}
 
   <div class="align-center bottom-padding">
