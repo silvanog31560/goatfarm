@@ -174,7 +174,7 @@ class Photo(models.Model):
                                       ],
                                       format='JPEG',
                                       options={'quality': 60})
-    description = models.CharField(max_length=50)
+    description = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.description

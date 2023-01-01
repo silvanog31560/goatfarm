@@ -128,7 +128,9 @@
                800px"
         src="{{ pic.image_regular.url }}"
         alt="{{ pic.image_regular }}" class="max-width radius" />
-      <figcaption>{{ pic.description }}</figcaption>
+      {% if pic.description %}
+        <figcaption>{{ pic.description }}</figcaption>
+      {% endif %}
     </figure>
   {% empty %}
     <p class="align-center">No images found.</p>
